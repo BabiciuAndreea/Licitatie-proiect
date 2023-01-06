@@ -2,12 +2,18 @@ import React,{Component} from "react";
 import {Button, ButtonGroup, Container, Table} from 'reactstrap';
 import AppNavbar from './AppNavbar';
 import {Link, withRouter} from 'react-router-dom';
+import "./cardstyle.css";
+import img from "./image/bg.jpg";
+
+
+
 
 class ProductList extends Component {
+
     constructor(props) {
         super(props);
         this.state = {products: []};
-        this.remove = this.remove.bind(this);
+
     }
 
     componentDidMount() {
@@ -35,39 +41,36 @@ class ProductList extends Component {
         if (isLoading) {
             return <p>Loading...</p>
         }
-        const productList = products.map(product => {
-            return <tr key={product.id}>
-                <td style={{whiteSpace: 'nowrap'}}>{product.name}</td>
-                <td>
-                    <ButtonGroup>
-                        <Button size="sm" color="primary" tag={Link} to={"/products/" + product.id}>Edit</Button>
-                        <Button size="sm" color="danger" onClick={() => this.remove(product.id)}>Delete</Button>
-                    </ButtonGroup>
-                </td>
-            </tr>
-        });
 
+        const productList = products.map(product => {
+            return <div class="items" key={product.id}>
+
+
+
+                <div className="name">
+                    {product.name} </div>
+                <img src={img}  alt="logo"  />
+
+                <div className="info">{product.details}</div>
+                <div className="price">PRICE: {product.price}</div>
+                <a href={`/products_page/${product.id}`} className="btn"> DETAILS
+                </a>
+
+
+            </div>
+
+        });
         return (
             <div>
-                <AppNavbar/>
-                <Container fluid>
-                    <div className="float-right">
-                        <Button color="success" tag={Link} to="/products/new">Add Product</Button>
-                    </div>
-                    <h3>Products</h3>
-                    <Table className="mt-4">
-                        <thead>
-                        <tr>
-                            <th width="80%">Name</th>
-                            <th width="20%">Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+
+                <div className="section2">
+                    <div className="container">
                         {productList}
-                        </tbody>
-                    </Table>
-                </Container>
+
+                    </div>
+                </div>
             </div>
+
         );
 
     }

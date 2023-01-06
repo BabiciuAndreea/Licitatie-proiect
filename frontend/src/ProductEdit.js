@@ -6,7 +6,10 @@ import AppNavbar from './AppNavbar';
 
 class ProductEdit extends Component {
     emptyItem = {
-        name: ''
+        name: '',
+        price:'',
+        details:'',
+        final_date:''
     };
 
     constructor(props) {
@@ -30,6 +33,9 @@ class ProductEdit extends Component {
         const target = event.target;
         const value = target.value;
         const name = target.name;
+        const details = target.details;
+        const price = target.price;
+        const final_date = target.final_date;
         let item = {...this.state.item};
         item[name] = value;
         this.setState({item});
@@ -53,6 +59,8 @@ class ProductEdit extends Component {
 
     render() {
         const {item} = this.state;
+
+
         const title = <h2>{item.id ? 'Edit Product' : 'Add Product'}</h2>;
 
         return (<div>
@@ -64,10 +72,19 @@ class ProductEdit extends Component {
                         <Label for="name">Name</Label>
                         <Input type="text" name="name" id="name" value={item.name}
                                onChange={this.handleChange} autoComplete="name"/>
+                        <Label for="name">Details</Label>
+                        <Input type="text" name="details" id="details" value={item.details}
+                               onChange={this.handleChange} autoComplete="details"/>
+                        <Label for="name">Price</Label>
+                        <Input type="text" name="price" id="price" value={item.price}
+                               onChange={this.handleChange} autoComplete="details"/>
+                        <Label for="name">Date final for auctions</Label>
+                        <Input type="text" name="final_date" id="final_date" value={item.final_date}
+                               onChange={this.handleChange} autoComplete="final_dates"/>
                     </FormGroup>
                     <FormGroup>
                         <Button color="primary" type="submit">Save</Button>
-                        <Button color="secondary" tag={Link} to="/products">Cancel</Button>
+                        <Button color="secondary" tag={Link} to="/">Cancel</Button>
                     </FormGroup>
                 </Form>
             </Container>

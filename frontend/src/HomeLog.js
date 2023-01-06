@@ -1,5 +1,5 @@
 import './App.css'
-import AppNavbar from './AppNavbar'
+import LogNavbar from './LogNavbarr'
 import React from "react";
 import Carousel from 'react-bootstrap/Carousel';
 import productList from "./ProductList";
@@ -9,11 +9,11 @@ import ProductList from "./ProductList";
 
 
 
-function Home() {
-       return(
+function HomeLog() {
+    return(
         <body>
-            <AppNavbar/>
-            <section>
+        <LogNavbar/>
+        <section>
             <Carousel>
                 <Carousel.Item interval={1000}>
                     <img
@@ -44,21 +44,21 @@ function Home() {
                     />
                 </Carousel.Item>
             </Carousel>
-                <div className="section">
-                    <div className="section2">
+            <div className="section">
+                <div className="section2">
 
-                        <div className="container"  >
-                            <ProductList/>
-                        </div>
-
+                    <div className="container"  >
+                        <ProductList/>
                     </div>
-                </div>
 
-            </section>
+                </div>
+            </div>
+
+        </section>
 
         </body>
     );
 }
 
-export default Home;
+export default HomeLog;
 

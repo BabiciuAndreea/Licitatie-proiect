@@ -7,6 +7,7 @@ import ProductList from "./ProductList";
 import ProductEdit from "./ProductEdit";
 import Login from "./Login/Login";
 import Register from "./Login/Register";
+import Productpage from "./productpage";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -50,6 +51,8 @@ class App extends Component {
                     <Route path='/products/:id'><ProductEdit/></Route>
                     <Route path='/login'><Login/></Route>
                     <Route path = '/register'><Register/></Route>
+                    <Route path='/products_page/:id'><Productpage/></Route>
+
                 </Switch>
             </Router>
         )

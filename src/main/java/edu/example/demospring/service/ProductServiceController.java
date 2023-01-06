@@ -22,18 +22,6 @@ public class ProductServiceController {
 
     final ProductServiceDAO productServiceDAO;
 
-    static {
-        ProductDTO p1 = new ProductDTO();
-        p1.setId(1l);
-        p1.setName("Mere");
-        productsMap.put(p1.getId(), p1);
-
-        ProductDTO p2 = new ProductDTO();
-        p2.setId(2l);
-        p2.setName("Pere");
-        productsMap.put(p2.getId(), p2);
-
-    }
 
 
     public ProductServiceController(ProductRepository productRepository, ProductServiceDAO productServiceDAO) {
@@ -43,7 +31,7 @@ public class ProductServiceController {
 
     @RequestMapping(value = "/products")
     public ResponseEntity<Object> getProducts() {
-        return new ResponseEntity<>(productRepository.findAll().stream().map(o -> new ProductDTO(o.getId(), o.getName())).collect(Collectors.toList()), HttpStatus.OK);
+        return new ResponseEntity<>(productRepository.findAll().stream().map(o -> new ProductDTO(o.getId(), o.getName(),o.getDetails(),o.getPrice(), o.getFinal_date())).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.POST)
@@ -51,19 +39,25 @@ public class ProductServiceController {
         productsMap.put(productDTO.getId(), productDTO);
         Product product = new Product();
         product.setName(productDTO.getName());
+        product.setDetails(productDTO.getDetails());
+        product.setPrice(productDTO.getPrice());
+        product.setFinal_date(productDTO.getFinal_date());
         productRepository.save(product);
         return new ResponseEntity<>("Product created", HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/products_page/{id}", method = RequestMethod.GET)
     public ResponseEntity<Object> getProduct(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(productRepository.findById(id).map(p -> new ProductDTO(p.getId(), p.getName())).orElse(null), HttpStatus.OK);
+        return new ResponseEntity<>(productRepository.findById(id).map(p -> new ProductDTO(p.getId(), p.getName(),p.getDetails(),p.getPrice(), p.getFinal_date())).orElse(null), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/products/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateProduct(@PathVariable("id") Long id, @RequestBody ProductDTO productDTO) {
         productRepository.findById(id).ifPresent(p -> {
             p.setName(productDTO.getName());
+            p.setDetails(productDTO.getDetails());
+            p.setPrice(productDTO.getPrice());
+            p.setFinal_date(productDTO.getFinal_date());
             productRepository.save(p);
         });
         productsMap.remove(id);
@@ -77,12 +71,5 @@ public class ProductServiceController {
         productRepository.deleteById(id);
         return new ResponseEntity<>(Optional.ofNullable(remove).map(p -> "Product deleted").orElse("Product not found"), HttpStatus.OK);
     }
-
-    @GetMapping(value = "/bulk_create")
-    public String bulkCreate() {
-        productRepository.saveAll(Arrays.asList(new Product("Mere"), new Product("Pere")));
-        return "Products created";
-    }
-
 
 }
