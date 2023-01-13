@@ -1,14 +1,18 @@
 
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import './App.css';
-import React,{Component} from "react";
+import {Component} from "react";
 import Home from './Home'
 import ProductList from "./ProductList";
 import ProductEdit from "./ProductEdit";
+import Productpage from "./productpage";
+import Bid from "./Bid";
 import Login from "./Login/Login";
 import Register from "./Login/Register";
-import Productpage from "./productpage";
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import LoggedHome from "./LoggedHome";
+import SocketMessage from "./SocketMessage";
+import App_Stomp from "./App_Stomp";
+
 
 
 
@@ -21,7 +25,11 @@ class App extends Component {
         const response = await fetch('/products');
         const body = await response.json();
         this.setState({products: body});
+        const response2=await fetch('/users');
+        const body2=await response.json();
+        this.setState({users:body});
     }
+
 
     // render() {
     //     const {products} = this.state
@@ -47,11 +55,15 @@ class App extends Component {
             <Router>
                 <Switch>
                     <Route path='/' exact={true}><Home/></Route>
-                    <Route path='/products' exact={true}><ProductList/></Route>
-                    <Route path='/products/:id'><ProductEdit/></Route>
+                    <Route path='/products' exact={true}><Home/></Route>
+                    <Route path='/products_page/:id'><Productpage/></Route>
+                    <Route path='/products_page/:id'><Bid/></Route>
                     <Route path='/login'><Login/></Route>
                     <Route path = '/register'><Register/></Route>
-                    <Route path='/products_page/:id'><Productpage/></Route>
+                    <Route path='/logged-home'><LoggedHome/></Route>
+                    <Route path='/app'><App_Stomp/></Route>
+                    <Route path='/message'><SocketMessage/></Route>
+                    <Route path='/products/:id'><ProductEdit/></Route>
 
                 </Switch>
             </Router>

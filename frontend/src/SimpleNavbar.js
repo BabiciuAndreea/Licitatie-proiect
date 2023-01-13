@@ -2,17 +2,20 @@ import {Component} from "react";
 import "./App.css";
 import "./ProductList"
 import {Navbar, NavbarBrand} from 'reactstrap';
-import Dropdown from 'react-bootstrap/Dropdown';
 import { Nav, Form, FormControl } from 'react-bootstrap';
-import {Link} from 'react-router-dom';
+import Dropdown from 'react-bootstrap/Dropdown';
 
-export default class AppNavbar extends Component {
+export default class SimpleNavbar extends Component {
     constructor(props) {
         super(props);
         this.state = {isOpen: false};
         this.toggle = this.toggle.bind(this);
     }
 
+    handleClick = () => {
+        localStorage.removeItem('jwt');
+        window.location.href="/";
+    }
     toggle() {
         this.setState({
             isOpen: !this.state.isOpen
@@ -53,7 +56,7 @@ export default class AppNavbar extends Component {
                     <Nav.Item ><Nav.Link className="colorWhite" href="/products/new">Sell</Nav.Link></Nav.Item>
                     <Nav.Item><Nav.Link className="colorWhite" href="/">Help</Nav.Link></Nav.Item>
                     <Nav.Item><Nav.Link className="colorWhite" href="/">Favorite</Nav.Link></Nav.Item>
-                    <Nav.Item><Nav.Link className="colorWhite" href="/login">Sign in</Nav.Link></Nav.Item>
+                    <Nav.Item><Nav.Link className="colorWhite" href="/login">Log out</Nav.Link></Nav.Item>
                 </Nav>
             </Navbar>
         );

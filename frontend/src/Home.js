@@ -1,19 +1,20 @@
+import {Component} from "react";
 import './App.css'
-import AppNavbar from './AppNavbar'
-import React from "react";
+import "./ProductEdit";
 import Carousel from 'react-bootstrap/Carousel';
+import { withRouter } from 'react-router-dom'
 import productList from "./ProductList";
 import ProductEdit from "./ProductEdit";
 import ProductList from "./ProductList";
 
-
+import AppNavbar from "./AppNavbar";
 
 
 function Home() {
-       return(
+    return(
         <body>
-            <AppNavbar/>
-            <section>
+        <AppNavbar/>
+        <section>
             <Carousel>
                 <Carousel.Item interval={1000}>
                     <img
@@ -44,21 +45,20 @@ function Home() {
                     />
                 </Carousel.Item>
             </Carousel>
-                <div className="section">
-                    <div className="section2">
+            <div className="section">
+                <div className="section2">
 
-                        <div className="container"  >
-                            <ProductList/>
-                        </div>
-
+                    <div className="container"  >
+                        <ProductList/>
                     </div>
-                </div>
 
-            </section>
+                </div>
+            </div>
+
+        </section>
 
         </body>
     );
 }
 
 export default Home;
-

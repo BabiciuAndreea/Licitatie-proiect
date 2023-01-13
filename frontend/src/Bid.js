@@ -2,10 +2,9 @@ import {Component} from "react";
 import {Link, withRouter} from 'react-router-dom';
 import {Button, Container, Form, FormGroup, Input, Label} from 'reactstrap';
 import AppNavbar from './AppNavbar';
-import SimpleNavbar from "./SimpleNavbar";
 
 
-class ProductEdit extends Component {
+class Bid extends Component {
     emptyItem = {
         name: '',
         price:'',
@@ -25,7 +24,7 @@ class ProductEdit extends Component {
     async componentDidMount() {
         console.log(this.props);
         if (this.props.match.params.id !== 'new') {
-            const product = await (await fetch(`/products/${this.props.match.params.id}`)).json();
+            const product = await (await fetch(`/products_update/${this.props.match.params.id}`)).json();
             this.setState({item: product});
         }
     }
@@ -33,9 +32,9 @@ class ProductEdit extends Component {
     handleChange(event) {
         const target = event.target;
         const value = target.value;
-        const name = target.name;
+        const price = target.price;
         let item = {...this.state.item};
-        item[name] = value;
+        item[price] = value;
         this.setState({item});
     }
 
@@ -43,20 +42,15 @@ class ProductEdit extends Component {
         event.preventDefault();
         const {item} = this.state;
 
-        await fetch('/products' + (item.id ? '/' + item.id : ''), {
-            method: (item.id) ? 'PUT' : 'POST',
+        await fetch('/products_page' + item.id , {
+            method: 'PUT' ,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(item),
-        }).then((response)=>response.text()).then((result)=>{
-            if(result=="Product created"){
-                alert("Product added successfully!");
-            }else{
-                alert("Something went wrong!");
-            }
         });
+        this.props.history.push(`/products_page/${item.id}`);
     }
 
 
@@ -67,25 +61,19 @@ class ProductEdit extends Component {
         const title = <h2>{item.id ? 'Edit Product' : 'Add Product'}</h2>;
 
         return (<div>
-            <SimpleNavbar/>
+            <AppNavbar/>
             <Container>
                 {title}
                 <Form onSubmit={this.handleSubmit}>
                     <FormGroup>
-                        <Label for="name">Name</Label>
-                        <Input type="text" name="name" id="name" value={item.name}
-                               onChange={this.handleChange} autoComplete="name"/>
-                        <Label for="name">Details</Label>
-                        <Input type="text" name="details" id="details" value={item.details}
-                               onChange={this.handleChange} autoComplete="details"/>
+
                         <Label for="name">Price</Label>
                         <Input type="text" name="price" id="price" value={item.price}
-                               onChange={this.handleChange} autoComplete="details"/>
+                               onChange={this.handleChange} autoComplete="description"/>
 
                     </FormGroup>
                     <FormGroup>
                         <Button color="primary" type="submit">Save</Button>
-                        <Button color="secondary" tag={Link} to="/logged-home">Cancel</Button>
                     </FormGroup>
                 </Form>
             </Container>
@@ -94,4 +82,4 @@ class ProductEdit extends Component {
 
 }
 
-export default withRouter(ProductEdit);
+export default withRouter(Bid);

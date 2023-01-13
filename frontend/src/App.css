@@ -34,8 +34,8 @@ nav + .container, nav + .container-fluid {
 /*for navbar - search bar*/
 .form-center {
   position: absolute !important;
-  left: 25%;
-  right: 25%;
+  left: 35%;
+  right: 35%;
 }
 .ml-auto
 {
@@ -45,7 +45,7 @@ nav + .container, nav + .container-fluid {
 NavbarBrand
 {
   position: relative;
-  rigth:100px;
+  rigth:50px;
 }
 
 .colorWhite{
@@ -109,15 +109,13 @@ NavbarBrand
   padding-left: 10px;
   color: rgb(14, 14, 13);
 }
-.section2 .container .items .btn {
-  background: rgb(132, 193, 227);
+.section2 .container .items .card-button {
+  background: rgb(87, 165, 208);
   color:black ;
   padding-right: 10px;
   position: relative;
   left: 50px;
   top: 15px;
-
-
 }
 .section2 .container .items .img img {
   width: 100px;
