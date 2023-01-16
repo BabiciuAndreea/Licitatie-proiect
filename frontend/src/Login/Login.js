@@ -78,9 +78,7 @@ class Login extends Component{
                                     <input type="password" name="password" id="password" value={item.password} onChange={this.handleChange} autoComplete="password"/>
                                 </div>
 
-                                <a href="/">
-                                    <input type="button" className="btn" value="Sign in"/>
-                                </a>
+                                <button className="btn">Log In</button>
                                 <a href="/register">
                                     <input type="button" className="btn" value="Register"/>
                                 </a>
